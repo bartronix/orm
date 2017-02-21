@@ -1,3 +1,3 @@
 <?php 
-class User extends BaseEntity{ 
+class User extends BaseEntity {
 }

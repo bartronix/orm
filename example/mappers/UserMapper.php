@@ -1,5 +1,5 @@
 <?php
-class UserMapper extends DataMapper{	
+class UserMapper extends DataMapper {
 	protected $datasource = "user";	
 	protected $entityClass = "User";		
 	protected $dbfields = array('id' => array('type' => 'int','primary' => true,'auto_increment' => true, 'dbtype' => 'int')

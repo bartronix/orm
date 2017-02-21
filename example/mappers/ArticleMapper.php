@@ -1,5 +1,5 @@
 <?php
-class ArticleMapper extends DataMapper{	
+class ArticleMapper extends DataMapper {
 	protected $datasource = "article";	
 	protected $entityClass = "Article";		
 	protected $dbfields = array('id' => array('type' => 'int','primary' => true, 'auto_increment' => true, 'dbtype' => 'int')

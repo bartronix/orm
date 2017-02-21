@@ -1,6 +1,5 @@
 <?php
-interface IDatabaseAdapter
-{
+interface IDatabaseAdapter {
 	public function insert($table, array $data);
 	public function update($table, array $data, $where);
 	public function delete($table, $where);
