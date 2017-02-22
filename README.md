@@ -1,3 +1,5 @@
+Version 1.0
+
 Use this orm for easy communication with your database.
 It handles CRUD easilly with ease using flexible syntax.
 It also provides a general "query" if you want to create complex queries.

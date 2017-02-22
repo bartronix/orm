@@ -9,7 +9,7 @@ $articleMapper = new ArticleMapper($db);
 $user = $userMapper->findOne(array("conditions" => array('username = ? ',"john doe")));
 echo "Username: " . $user->username;
 echo "<br />Articles of this user:<br />";
-foreach($user->articles as $article){
+foreach($user->articles as $article) {
 	echo $article->title . '<br />';
 }
 //edit the user
@@ -31,14 +31,14 @@ $users = $userMapper->findMany(array("limit" => 3, "sort" => array("username","a
 //4 queries: one for retrieving the users and 1 per user lazy loading the articles.
 $users = $userMapper->findMany(array("limit" => 3, "sort" => array("username","asc")));
 echo sizeof($users) . " users found<br />";
-foreach($users as $user){
+foreach($users as $user) {
 	echo "<br />Username:" . $user->username . "<br />";
-	if(sizeof($user->articles) > 0){
+	if(sizeof($user->articles) > 0) {
 		echo "Articles of this user:<br />";
-		foreach($user->articles as $article){
+		foreach($user->articles as $article) {
 			echo $article->title . "<br />";
 		}
-	}else{
+	} else {
 		echo "No articles for this user.";
 	}
 }

@@ -49,7 +49,7 @@ abstract class DataMapper {
 	}
 	//overwrite lazy load proxies with data for direct access
 	private function eagerLoadRelations($relations, &$results) {
-		if(sizeof($results) > 0){
+		if(sizeof($results) > 0) {
 			foreach($relations as $relation){
 				if(!array_key_exists($relation, $this->relations)) {
 					throw new Exception("Datamapper misconfiguration. Relation '" . $relation . "' not defined in datamapper.");
@@ -152,7 +152,7 @@ abstract class DataMapper {
 		$result = $this->database->findMany($this->datasource, $params);				
 		$results = array();
 		if(!empty($result)) {
-			foreach($result as $res){				
+			foreach($result as $res) {
 				$results[] = $this->toEntity($res);
 			}			
 		}
@@ -183,7 +183,7 @@ abstract class DataMapper {
 				$pk = $dbfield;
 			}
 		}
-		if($pkCount > 1){		
+		if($pkCount > 1) {	
 			return "id";
 		}
 		return $pk;
