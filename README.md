@@ -1,4 +1,4 @@
-Version 1.0
+Version 1.0a
 
 Use this orm for easy communication with your database.
 It handles CRUD easilly with ease using flexible syntax.
