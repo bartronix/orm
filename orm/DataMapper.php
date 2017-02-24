@@ -83,7 +83,7 @@ abstract class DataMapper {
                     //build the search for related entries
                     $mapper = ucfirst(strtolower($relation)) . "Mapper";
                     $mapper = new $mapper($this->database);
-					$field = strtolower($mapper->entityClass . "_" . $mapper->findPk());
+					$field = lcfirst($mapper->entityClass) . ucfirst($mapper->findPk());
 					foreach($results as $entry) {
 						if(!in_array($entry->$field, $relationValues)) $relationValues[] = $entry->$field;
 					}				
@@ -92,7 +92,7 @@ abstract class DataMapper {
 						$firstEntry .= "?,";
 					}	
 					$firstEntry = rtrim($firstEntry, ",") . ")";
-					array_unshift($relationValues,$firstEntry);			
+					array_unshift($relationValues,$firstEntry);
 					$related = $this->database->findMany($relationMapper->datasource, array("conditions" => $relationValues));
                    
                     if(empty($related)) {
