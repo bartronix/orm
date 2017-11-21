@@ -78,7 +78,7 @@ class PdoAdapter implements IDatabaseAdapter {
 		return $this->query($sql);			
 	}
 	
-	public function query($sql,array $bind = array()) {
+	public function query($sql, array $bind = array()) {
 		$stmt = $this->connection->prepare($sql);
 		if(preg_match("/^(" . implode("|", array("select")) . ") /i", $sql)) {
             $stmt->execute($bind);			
