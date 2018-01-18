@@ -29,7 +29,7 @@ abstract class DataMapper {
 		}
 	}
 	
-	public function query($query,array $params = array()) {
+	public function query($query, array $params = array()) {
 		return $this->database->query($query, $params);
 	}
 	
@@ -56,7 +56,7 @@ abstract class DataMapper {
 				}
 				$mapper = $relation . "Mapper";
 				$relationMapper = new $mapper($this->database);
-				foreach($this->relations as $relationKey => $relationValue){		
+				foreach($this->relations as $relationKey => $relationValue) {		
 					if($relation === $relationKey) {
 						$relationType = (isset($relationValue['type']) ? $relationValue['type'] : "");
 						if($relationType === "single") {
@@ -92,7 +92,7 @@ abstract class DataMapper {
 						$firstEntry .= "?,";
 					}	
 					$firstEntry = rtrim($firstEntry, ",") . ")";
-					array_unshift($relationValues,$firstEntry);
+					array_unshift($relationValues, $firstEntry);
 					$related = $this->database->findMany($relationMapper->datasource, array("conditions" => $relationValues));
                    
                     if(empty($related)) {
@@ -120,7 +120,7 @@ abstract class DataMapper {
 					}				
 					$firstEntry = rtrim($firstEntry, ",");
 					$firstEntry .= ")";
-					array_unshift($relationValues,$firstEntry);
+					array_unshift($relationValues, $firstEntry);
 					$related = $this->database->findMany($relationMapper->datasource, array("conditions" => $relationValues));
 					foreach ($results as $key => $value) {
 						$resultArray[$value->$pk] = array();					
@@ -162,7 +162,7 @@ abstract class DataMapper {
 		return $results;
 	}
 	
-	public function findById($id,array $params = array()) {
+	public function findById($id, array $params = array()) {
 		$result = $this->database->findOne($this->datasource,array("conditions" => array($this->findPk() . "= ?", $id)));
 		if(!empty($result) && sizeof($result) == 1) {
 			$result = $this->toEntity($result);
@@ -226,7 +226,7 @@ abstract class DataMapper {
 	}
 	
 	private function parseFk($m) {
-		$pieces = explode('_',$m->datasource);		
+		$pieces = explode('_', $m->datasource);		
 		$fk = "";
 		foreach($pieces as $piece) {
 			$fk .= strtolower($piece) . "_";

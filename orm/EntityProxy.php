@@ -4,13 +4,13 @@ class EntityProxy extends AbstractProxy {
 	protected $mapper;
 	protected $condition;
 	
-	public function __construct($mapper,$condition) { 
+	public function __construct($mapper, $condition) { 
 		$this->mapper = $mapper;
 		$this->condition = $condition;
 	}
 	
 	public function get() {
-		if($this->item==null) {	
+		if($this->item == null) {	
 			$this->load();			
 		}
 		return $this->item;

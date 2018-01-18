@@ -5,17 +5,17 @@ class CollectionProxy extends AbstractProxy {
 	protected $paramkey;
 	protected $paramval;
 	
-	public function __construct($mapper,$paramKey,$paramVal) {
+	public function __construct($mapper, $paramKey, $paramVal) {
 		$this->mapper = $mapper;
 		$this->paramKey = $paramKey;
 		$this->paramVal = $paramVal;		
 	}
 	
 	public function get() {
-		if ($this->item==null){			
+		if ($this->item == null){			
 			$this->load();			
 		}		
-        return $this->item;
+        	return $this->item;
 	}
 	
 	public function load() {

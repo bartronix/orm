@@ -1,11 +1,11 @@
 <?php
 class PdoAdapter implements IDatabaseAdapter {
-	public $connection;	
+	public $connection;
 	private $host = "";
 	private $username = "";
 	private $password = "";
 	private $dbname = "";
-	
+
 	function __construct() {
 		$this->connect();	
 	}
@@ -58,7 +58,7 @@ class PdoAdapter implements IDatabaseAdapter {
 			$data[":" . $col] = $value;
 		}
 		$sql = "insert into " . $table . " (" . $cols . ")  values (:" . $values . ")";	
-		return $this->query($sql,$data);
+		return $this->query($sql, $data);
 	}
 
 	public function update($table, array $data, $where = "") {		
@@ -70,7 +70,7 @@ class PdoAdapter implements IDatabaseAdapter {
 			$set[] = $col . " = :" . $col;
 		}
 		$sql = "UPDATE " . $table . " SET " . implode(", ", $set) . (($where) ? " WHERE " . $where : " ");		
-		return $this->query($sql,$data);
+		return $this->query($sql, $data);
 	}
 	
 	public function delete($table, $where = "") {
@@ -81,7 +81,7 @@ class PdoAdapter implements IDatabaseAdapter {
 	public function query($sql, array $bind = array()) {
 		$stmt = $this->connection->prepare($sql);
 		if(preg_match("/^(" . implode("|", array("select")) . ") /i", $sql)) {
-            $stmt->execute($bind);			
+            		$stmt->execute($bind);			
 			return $stmt->fetchAll(PDO::FETCH_OBJ);
 		} else {
 			return $stmt->execute($bind);
@@ -121,6 +121,6 @@ class PdoAdapter implements IDatabaseAdapter {
 				$sql .= " OFFSET " . $params["offset"];
 			}
 		}
-		return $this->query($sql,$bind);		
+		return $this->query($sql, $bind);		
 	}
 }
