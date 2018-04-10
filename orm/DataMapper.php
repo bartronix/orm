@@ -45,7 +45,7 @@ abstract class DataMapper {
 	}
 	
 	public function delete($id) {		
-		return $this->database->delete($this->datasource, $this->findPk() . ' = ' . $id);
+		return $this->database->delete($this->datasource, $this->findPk() . " = " . $id);
 	}
 	//overwrite lazy load proxies with data for direct access
 	private function eagerLoadRelations($relations, &$results) {
@@ -58,11 +58,11 @@ abstract class DataMapper {
 				$relationMapper = new $mapper($this->database);
 				foreach($this->relations as $relationKey => $relationValue) {		
 					if($relation === $relationKey) {
-						$relationType = (isset($relationValue['type']) ? $relationValue['type'] : "");
+						$relationType = (isset($relationValue["type"]) ? $relationValue["type"] : "");
 						if($relationType === "single") {
-							$relationAlias = (isset($relationValue['alias']) ? $relationValue['alias'] : lcFirst($relationKey));
+							$relationAlias = (isset($relationValue["alias"]) ? $relationValue["alias"] : lcFirst($relationKey));
 						} else if($relationType === "multiple") {
-							$relationAlias = (isset($relationValue['alias']) ? $relationValue['alias'] : lcFirst($relationKey) ."s");
+							$relationAlias = (isset($relationValue["alias"]) ? $relationValue["alias"] : lcFirst($relationKey) ."s");
 						}
 					}
 				}
@@ -206,18 +206,18 @@ abstract class DataMapper {
 		}
 		//check for relations and add lazy load proxies
 		foreach($this->relations as $key => $value) {		
-			$relationType = (isset($value['type']) ? $value['type'] : "");
+			$relationType = (isset($value["type"]) ? $value["type"] : "");
 			if(empty($relationType)) throw new Exception("Datamapper error: relation type expected");			
 			$mapper = $key."Mapper";
 			$m = new $mapper($this->database);
 			if($relationType === "single") {
-				$entityKey = $entityKey = (isset($value['alias']) ? $value['alias'] : lcfirst($key));
+				$entityKey = $entityKey = (isset($value["alias"]) ? $value["alias"] : lcfirst($key));
 				$fk = $this->parseFk($m);
 				$key = lcfirst($key);
 				$this->entity->$entityKey = new EntityProxy($m, $data->$fk);
 			}
 			if($relationType === "multiple") {
-				$entityKey = $entityKey = (isset($value['alias']) ? $value['alias'] : lcfirst($key)."s");
+				$entityKey = $entityKey = (isset($value["alias"]) ? $value["alias"] : lcfirst($key)."s");
 				$pk = $this->findPk();
 				$this->entity->$entityKey = new CollectionProxy($m, $this->parseFk($this), $data->$pk);
 			}
@@ -226,7 +226,7 @@ abstract class DataMapper {
 	}
 	
 	private function parseFk($m) {
-		$pieces = explode('_', $m->datasource);		
+		$pieces = explode("_", $m->datasource);		
 		$fk = "";
 		foreach($pieces as $piece) {
 			$fk .= strtolower($piece) . "_";
