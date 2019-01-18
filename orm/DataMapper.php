@@ -138,9 +138,7 @@ abstract class DataMapper {
 	
 	public function findOne(array $params = array()) {	
 		$result = $this->database->findOne($this->datasource, $params);		
-		if(!empty($result) && sizeof($result) == 1) {
-			$result = $this->toEntity($result);
-		}
+		if(!empty($result)) $result = $this->toEntity($result);
 		if(!empty($params["relations"])) {
 			$results[] = $result;
 			$this->eagerLoadRelations($params["relations"], $results);
@@ -164,9 +162,7 @@ abstract class DataMapper {
 	
 	public function findById($id, array $params = array()) {
 		$result = $this->database->findOne($this->datasource,array("conditions" => array($this->findPk() . "= ?", $id)));
-		if(!empty($result) && sizeof($result) == 1) {
-			$result = $this->toEntity($result);
-		}		
+		if(!empty($result)) $result = $this->toEntity($result);
 		if(!empty($params["relations"])) {
 			$results[] = $result;
 			$this->eagerLoadRelations($params["relations"], $results);
