@@ -1,4 +1,10 @@
 <?php
+/**  
+* @copyright Bart Leemans
+* @author Bart Leemans <contact@bartleemans.be>
+* @version 1.0
+* @license MIT
+*/
 abstract class BaseEntity {
 	//default id value - you can override this in your class if necessary
 	public $fields = array("id" => 0);	
