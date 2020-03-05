@@ -2,7 +2,7 @@
 /**  
 * @copyright Bart Leemans
 * @author Bart Leemans <contact@bartleemans.be>
-* @version 1.0
+* @version 1.1
 * @license MIT
 */
 abstract class DataMapper {
@@ -47,14 +47,25 @@ abstract class DataMapper {
 	public function update($item) {
 		$this->filterFields($item);
 		$pk = $this->findPk();
-		return $this->database->update($this->datasource, $item->getFields(), $pk . " = " . $item->$pk);
+		$clause = $this->generateClause($pk, $item->$pk);
+		return $this->database->update($this->datasource, $item->getFields(), $clause);
+	}
+
+	public function generateClause($field1, $field2) {
+		switch(gettype($field2)) {
+			case "string":
+				return $field1 . " = '" . $field2 . "'";
+			default:
+				return $field1 . " = " . $field2;
+		}
 	}
 	
-	public function delete($id) {		
-		return $this->database->delete($this->datasource, $this->findPk() . " = " . $id);
+	public function delete($id) {
+		$clause = $this->generateClause($this->findPk(), $id);
+		return $this->database->delete($this->datasource, $clause);
 	}
 	//overwrite lazy load proxies with data for direct access
-	private function eagerLoadRelations($relations, &$results) {
+	private function eagerLoadRelations($relations, &$results) {		
 		if(sizeof($results) > 0) {
 			foreach($relations as $relation){
 				if(!array_key_exists($relation, $this->relations)) {
@@ -167,7 +178,7 @@ abstract class DataMapper {
 	}
 	
 	public function findById($id, array $params = array()) {
-		$result = $this->database->findOne($this->datasource,array("conditions" => array($this->findPk() . "= ?", $id)));
+		$result = $this->database->findOne($this->datasource,array("conditions" => array($this->findPk() . "= ?", $id)));		
 		if(!empty($result)) $result = $this->toEntity($result);
 		if(!empty($params["relations"])) {
 			$results[] = $result;
@@ -207,7 +218,7 @@ abstract class DataMapper {
 			$this->entity->$dbfield = $data->$field;
 		}
 		//check for relations and add lazy load proxies
-		foreach($this->relations as $key => $value) {		
+		foreach($this->relations as $key => $value) {	;
 			$relationType = (isset($value["type"]) ? $value["type"] : "");
 			if(empty($relationType)) throw new Exception("Datamapper error: relation type expected");			
 			$mapper = $key."Mapper";
