@@ -1,17 +1,19 @@
 <?php
-function autoloadSystem($className) {
-    $paths = array(
-        '/example/entities/', 
+
+function autoloadSystem($className)
+{
+    $paths = [
+        '/example/entities/',
         '/example/mappers/',
-        '/orm/'
-    );
-    $parts = explode('\\',$className);
+        '/orm/',
+    ];
+    $parts = explode('\\', $className);
     $className = end($parts);
-    $file = $className . '.php';
-    for($i = 0; $i < count($paths); $i++) {
-        if(file_exists($_SERVER['DOCUMENT_ROOT'] . $paths[$i] . $file)) {
-            include_once $_SERVER['DOCUMENT_ROOT'] . $paths[$i].$file;
-        } 
+    $file = $className.'.php';
+    for ($i = 0; $i < count($paths); ++$i) {
+        if (file_exists($_SERVER['DOCUMENT_ROOT'].$paths[$i].$file)) {
+            include_once $_SERVER['DOCUMENT_ROOT'].$paths[$i].$file;
+        }
     }
 }
-spl_autoload_register("autoloadSystem");
+spl_autoload_register('autoloadSystem');

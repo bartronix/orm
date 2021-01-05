@@ -1,3 +1,5 @@
-<?php 
-class Article extends BaseEntity {
+<?php
+
+class Article extends BaseEntity
+{
 }
