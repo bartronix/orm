@@ -1,12 +1,5 @@
 <?php
-/**
-* @copyright Bart Leemans
-* @author Bart Leemans <contact@bartleemans.be>
-*
-* @version 1.1
-*
-* @license MIT
-*/
+
 abstract class DataMapper
 {
     protected $database;

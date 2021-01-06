@@ -1,12 +1,5 @@
 <?php
-/**
-* @copyright Bart Leemans
-* @author Bart Leemans <contact@bartleemans.be>
-*
-* @version 1.0
-*
-* @license MIT
-*/
+
 class EntityProxy extends AbstractProxy
 {
     private $item = null;
